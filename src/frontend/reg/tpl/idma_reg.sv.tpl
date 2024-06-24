@@ -70,7 +70,7 @@ module idma_${identifier} #(
           end
       end
   end
-
+              
   // generate the registers
   for (genvar i = 0; i < NumRegs; i++) begin : gen_core_regs
 
@@ -122,8 +122,8 @@ module idma_${identifier} #(
 % endif
 
       // Protocols
-      arb_dma_req[i]${sep}src_protocol = idma_pkg::protocol_e'(dma_reg2hw[i].conf.src_protocol);
-      arb_dma_req[i]${sep}dst_protocol = idma_pkg::protocol_e'(dma_reg2hw[i].conf.dst_protocol);
+      arb_dma_req[i]${sep}opt.src_protocol = idma_pkg::protocol_e'(dma_reg2hw[i].conf.src_protocol);
+      arb_dma_req[i]${sep}opt.dst_protocol = idma_pkg::protocol_e'(dma_reg2hw[i].conf.dst_protocol);
 
       // Current backend only supports incremental burst
       arb_dma_req[i]${sep}opt.src.burst = axi_pkg::BURST_INCR;
