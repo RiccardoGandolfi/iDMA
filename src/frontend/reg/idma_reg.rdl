@@ -106,13 +106,13 @@ addrmap idma_reg #(
     };
 
     reg length {
-        name = "lenght";
+        name = "length";
         desc = "Transfer length in bytes";
         default sw = rw;
         default hw = r;
         field {
             desc = "Transfer length in bytes";
-        } lenght [31:0] = 0;
+        } length [31:0] = 0;
     };
 
     reg dst_stride {
