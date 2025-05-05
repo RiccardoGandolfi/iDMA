@@ -56,8 +56,8 @@ module idma_${identifier} #(
 
 
   // register connections
-  idma_${identifier}_reg_pkg::idma_reg__out_t [NumRegs-1:0] dma_reg2hw;
-  idma_${identifier}_reg_pkg::idma_reg__in_t  [NumRegs-1:0] dma_hw2reg;
+  idma_${identifier}_reg_pkg::idma_reg__out_t dma_reg2hw [NumRegs-1:0];
+  idma_${identifier}_reg_pkg::idma_reg__in_t  dma_hw2reg [NumRegs-1:0];
 
   // arbitration output
   dma_req_t [NumRegs-1:0] arb_dma_req;
@@ -172,16 +172,16 @@ module idma_${identifier} #(
       // ND connections
 % for nd in range(0, num_dim-1):
 % if bit_width == '32':
-      arb_dma_req[i].d_req[${nd}].reps = dma_reg2hw[i].dim[nd].reps[0].reps.value;
-      arb_dma_req[i].d_req[${nd}].src_strides = dma_reg2hw[i].dim[nd].src_stride.src_stride.value;
-      arb_dma_req[i].d_req[${nd}].dst_strides = dma_reg2hw[i].dim[nd].dst_stride.dst_stride.value;
+      arb_dma_req[i].d_req[${nd}].reps = dma_reg2hw[i].dim[${nd}].reps[0].reps.value;
+      arb_dma_req[i].d_req[${nd}].src_strides = dma_reg2hw[i].dim[${nd}].src_stride.src_stride.value;
+      arb_dma_req[i].d_req[${nd}].dst_strides = dma_reg2hw[i].dim[${nd}].dst_stride.dst_stride.value;
 % else:
-      arb_dma_req[i].d_req[${nd}].reps = {dma_reg2hw[i].dim[nd].reps[1].reps.value,
-                                      dma_reg2hw[i].dim[nd].reps[0].reps.value };
-      arb_dma_req[i].d_req[${nd}].src_strides = {dma_reg2hw[i].dim[nd].src_stride[1].src_stride.value,
-                                             dma_reg2hw[i].dim[nd].src_stride[0].src_stride.value};
-      arb_dma_req[i].d_req[${nd}].dst_strides = {dma_reg2hw[i].dim[nd].dst_stride[1].dst_stride.value,
-                                             dma_reg2hw[i].dim[nd].dst_stride[0].dst_stride.value};
+      arb_dma_req[i].d_req[${nd}].reps = {dma_reg2hw[i].dim[${nd}].reps[1].reps.value,
+                                      dma_reg2hw[i].dim[${nd}].reps[0].reps.value };
+      arb_dma_req[i].d_req[${nd}].src_strides = {dma_reg2hw[i].dim[${nd}].src_stride[1].src_stride.value,
+                                             dma_reg2hw[i].dim[${nd}].src_stride[0].src_stride.value};
+      arb_dma_req[i].d_req[${nd}].dst_strides = {dma_reg2hw[i].dim[${nd}].dst_stride[1].dst_stride.value,
+                                             dma_reg2hw[i].dim[${nd}].dst_stride[0].dst_stride.value};
 % endif
 % endfor
 
