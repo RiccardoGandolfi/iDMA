@@ -56,8 +56,8 @@ module idma_${identifier} #(
 
 
   // register connections
-  idma_${identifier}_reg_pkg::idma_${identifier}__out_t [NumRegs-1:0] dma_reg2hw;
-  idma_${identifier}_reg_pkg::idma_${identifier}__in_t  [NumRegs-1:0] dma_hw2reg;
+  idma_${identifier}_reg_pkg::idma_reg__out_t [NumRegs-1:0] dma_reg2hw;
+  idma_${identifier}_reg_pkg::idma_reg__in_t  [NumRegs-1:0] dma_hw2reg;
 
   // arbitration output
   dma_req_t [NumRegs-1:0] arb_dma_req;
