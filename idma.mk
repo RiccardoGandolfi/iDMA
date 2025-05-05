@@ -10,6 +10,7 @@ CAT         ?= cat
 DOT         ?= dot
 GIT         ?= git
 MORTY       ?= morty
+PEAKRDL     ?= peakrdl
 PRINTF      ?= printf
 PYTHON      ?= python3
 SPHINXBUILD ?= sphinx-build
@@ -169,7 +170,7 @@ dimension = $(word 2,$(subst _, ,$1))
 log2dimension = $(shell echo $$(( $$( echo "obase=2;$$(($(1)-1))" | bc | wc -c ) - 1 )) )
 
 $(IDMA_RTL_DIR)/idma_reg%d_reg_pkg.sv $(IDMA_RTL_DIR)/idma_reg%d_reg_top.sv:
-	peakrdl regblock $(IDMA_FE_DIR)/reg/idma_reg.rdl -o $(IDMA_RTL_DIR) \
+	$(PEAKRDL) regblock $(IDMA_FE_DIR)/reg/idma_reg.rdl -o $(IDMA_RTL_DIR) \
 	  --default-reset arst_n --cpuif apb4-flat \
 	  --module-name idma_reg$*d_reg_top \
 	  --package idma_reg$*d_reg_pkg \
@@ -178,7 +179,7 @@ $(IDMA_RTL_DIR)/idma_reg%d_reg_pkg.sv $(IDMA_RTL_DIR)/idma_reg%d_reg_top.sv:
 	  -P Log2NumDims=$(call log2dimension,$(call dimension,$*))
 
 $(IDMA_RTL_DIR)/idma_desc64_reg_pkg.sv $(IDMA_RTL_DIR)/idma_desc_reg_top.sv:
-	peakrdl regblock $(IDMA_FE_DIR)/desc64/idma_desc64_reg.rdl -o $(IDMA_RTL_DIR) \
+	$(PEAKRDL) regblock $(IDMA_FE_DIR)/desc64/idma_desc64_reg.rdl -o $(IDMA_RTL_DIR) \
 	  --default-reset arst_n --cpuif apb4-flat \
 	  --module-name idma_desc64_reg_top \
 	  --package idma_desc64_reg_pkg
