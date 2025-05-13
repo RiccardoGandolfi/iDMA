@@ -213,7 +213,7 @@ module idma_${identifier} #(
 
     // tie-off unused channels
     for (genvar c = NumStreams; c < MaxNumStreams; c++) begin : gen_hw2reg_unused
-        assign dma_hw2reg[i].status[c].rd_data.status  = '0;
+        assign dma_hw2reg[i].status[c].rd_data = '0;
         assign dma_hw2reg[i].status[c].rd_ack  = '0;
         assign dma_hw2reg[i].next_id[c].rd_data.next_id = '0;
         assign dma_hw2reg[i].next_id[c].rd_ack = '0;
