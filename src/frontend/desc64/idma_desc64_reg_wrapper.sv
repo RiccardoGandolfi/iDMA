@@ -32,7 +32,7 @@ import idma_desc64_reg_pkg::idma_desc64_reg__in_t; #(
     logic     apb_psel, apb_psel_q, apb_penable, apb_pready;
     logic     input_addr_valid_q, input_addr_valid_d;
 
-    idma_desc64_reg i_register_file_controller (
+    idma_desc64_reg_top i_register_file_controller (
         .clk       (clk_i)    ,
         .arst_n    (rst_ni)   ,
 
