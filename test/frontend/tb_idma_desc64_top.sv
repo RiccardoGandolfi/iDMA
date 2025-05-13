@@ -154,7 +154,7 @@ module tb_idma_desc64_top
         .TT(ACQ_DELAY)
     ) i_axi_iface_driver = new (i_axi_iface_bus);
 
-    apb_rsp_t dma_slave_response;
+    apb_resp_t dma_slave_response;
     apb_req_t dma_slave_request;
 
     idma_req_t dma_be_req;
@@ -176,7 +176,7 @@ module tb_idma_desc64_top
         .axi_req_t       (axi_req_t),
         .axi_ar_chan_t   (axi_ar_chan_t),
         .axi_r_chan_t    (axi_r_chan_t),
-        .apb_rsp_t       (apb_rsp_t),
+        .apb_rsp_t       (apb_resp_t),
         .apb_req_t       (apb_req_t),
         .InputFifoDepth  (InputFifoDepth),
         .PendingFifoDepth(PendingFifoDepth),

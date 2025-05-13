@@ -250,7 +250,7 @@ $(IDMA_PICKLE_DIR)/sources.json: $(IDMA_BENDER_FILES) $(IDMA_FULL_TB) $(IDMA_FUL
 	$(BENDER) sources -f -t rtl -t synth -t asic -t snitch_cluster | sed -e $(IDMA_RELATIVE_PATH_REGEX) > $@
 
 $(IDMA_PICKLE_DIR)/%.sv: $(IDMA_PICKLE_DIR)/sources.json
-	$(MORTY) -f $< -i --top $* $(IDMA_MORTY_ARGS) --propagate_defines -o $@.pre
+	$(MORTY) -f $< -i $(IDMA_MORTY_ARGS) --propagate_defines -o $@.pre
 	# Hack cf_math_pkg in
 	if grep -q "package cf_math_pkg;" "$@.pre"; then \
 		$(CAT) $@.pre > $@; \
