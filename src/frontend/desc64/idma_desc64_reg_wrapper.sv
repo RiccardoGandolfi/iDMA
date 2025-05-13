@@ -47,8 +47,8 @@ import idma_desc64_reg_pkg::idma_desc64_reg__in_t; #(
         .s_apb_prdata  (apb_rsp_o.prdata) ,
         .s_apb_pslverr (apb_rsp_o.pslverr) ,
 
-        .reg2hw    (reg2hw_o) ,
-        .hw2reg    (hw2reg_i)
+        .hwif_out    (reg2hw_o) ,
+        .hwif_in     (hw2reg_i)
     );
 
     assign apb_penable = apb_psel_q & apb_req_i.penable;
@@ -77,7 +77,7 @@ import idma_desc64_reg_pkg::idma_desc64_reg__in_t; #(
         if (input_addr_ready_i) begin
             input_addr_valid_d = '0;
         end
-        if (reg2hw_o.desc_addr.swmod) begin
+        if (reg2hw_o.desc_addr.desc_addr.swmod) begin
             input_addr_valid_d = 1'b1;
         end
     end
