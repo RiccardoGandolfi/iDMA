@@ -47,8 +47,8 @@ import idma_desc64_reg_pkg::idma_desc64_reg__in_t; #(
         .s_apb_prdata  (apb_rsp_o.prdata) ,
         .s_apb_pslverr (apb_rsp_o.pslverr) ,
 
-        .reg2hw    (reg2hw_o) ,
-        .hw2reg    (hw2reg_i)
+        .hwif_in     (reg2hw_o) ,
+        .hwif_out    (hw2reg_i)
     );
 
     assign apb_penable = apb_psel_q & apb_req_i.penable;
