@@ -161,7 +161,7 @@ module tb_idma_desc64_bench
     APB #(
         .ADDR_WIDTH(64),
         .DATA_WIDTH(64)
-    ) i_apb_iface_bus;
+    ) i_apb_iface_bus ();
 
     apb_driver #(
         .ADDR_WIDTH(64),
