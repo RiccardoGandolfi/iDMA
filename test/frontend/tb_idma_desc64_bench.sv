@@ -616,10 +616,10 @@ module tb_idma_desc64_bench
             current_stimulus_group = generated_stimuli.pop_front();
 
             i_apb_driver.write(
-                .addr (IDMA_DESC64_REG_DESC_ADDR_REG_OFFSET) ,
-                .data (current_stimulus_group[0].base),
-                .strb (8'hff)                         ,
-                .error(error)
+                .addr(IDMA_DESC64_REG_DESC_ADDR_REG_OFFSET) ,
+                .data(current_stimulus_group[0].base),
+                .strb(8'hff)                         ,
+                .err (error)
             );
         end
     endtask
@@ -857,7 +857,7 @@ module tb_idma_desc64_bench
                     i_apb_driver.read(
                         .addr(IDMA_DESC64_REG_STATUS_REG_OFFSET),
                         .data(status),
-                        .error(error)
+                        .err (error)
                     );
                     if (status[0] != 1'b1) break;
                 end
