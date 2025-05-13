@@ -615,7 +615,7 @@ module tb_idma_desc64_bench
             wait (generated_stimuli.size() > '0);
             current_stimulus_group = generated_stimuli.pop_front();
 
-            i_apb_driver.send_write(
+            i_apb_driver.write(
                 .addr (IDMA_DESC64_REG_DESC_ADDR_REG_OFFSET) ,
                 .data (current_stimulus_group[0].base),
                 .strb (8'hff)                         ,
@@ -854,7 +854,7 @@ module tb_idma_desc64_bench
                 forever begin
                     automatic logic [63:0] status;
                     automatic logic error;
-                    i_apb_driver.send_read(
+                    i_apb_driver.read(
                         .addr(IDMA_DESC64_REG_STATUS_REG_OFFSET),
                         .data(status),
                         .error(error)
