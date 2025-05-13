@@ -247,7 +247,7 @@ IDMA_MORTY_ARGS  ?=
 
 $(IDMA_PICKLE_DIR)/sources.json: $(IDMA_BENDER_FILES) $(IDMA_FULL_TB) $(IDMA_FULL_RTL) $(IDMA_INCLUDE_ALL)
 	mkdir -p $(IDMA_PICKLE_DIR)
-	$(BENDER) sources -f -t rtl -t synth -t asic -t snitch_cluster | sed -e $(IDMA_RELATIVE_PATH_REGEX) > $@
+	$(BENDER) sources -f -t rtl -t synth -t asic -t snitch_cluster -t tech_cells_generic_exclude_deprecated | sed -e $(IDMA_RELATIVE_PATH_REGEX) > $@
 
 $(IDMA_PICKLE_DIR)/%.sv: $(IDMA_PICKLE_DIR)/sources.json
 	$(MORTY) -f $< -i $(IDMA_MORTY_ARGS) --propagate_defines -o $@.pre
