@@ -126,7 +126,7 @@ module tb_idma_desc64_top
     APB_DV #(
         .ADDR_WIDTH(64),
         .DATA_WIDTH(64)
-    ) i_apb_iface_bus ();
+    ) i_apb_iface_bus (clk);
 
     apb_driver #(
         .ADDR_WIDTH(64),

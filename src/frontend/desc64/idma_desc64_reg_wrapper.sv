@@ -40,7 +40,7 @@ import idma_desc64_reg_pkg::idma_desc64_reg__in_t; #(
         .s_apb_penable (apb_penable) ,
         .s_apb_pwrite  (apb_req_i.pwrite) ,
         .s_apb_pprot   (apb_req_i.pprot) ,
-        .s_apb_paddr   (apb_req_i.paddr) ,
+        .s_apb_paddr   (apb_req_i.paddr[idma_desc64_reg_pkg::IDMA_DESC64_REG_TOP_MIN_ADDR_WIDTH-1:0]) ,
         .s_apb_pwdata  (apb_req_i.pwdata) ,
         .s_apb_pstrb   (apb_req_i.pstrb) ,
         .s_apb_pready  (apb_pready) ,
