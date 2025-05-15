@@ -258,6 +258,8 @@ $(IDMA_PICKLE_DIR)/%.sv: $(IDMA_PICKLE_DIR)/sources.json
 	else \
 		$(CAT) $(IDMA_CF_PKG) $@.pre > $@; \
 	fi
+	# Hack apb_pkg::prot_t IDMA_DOC_OUT_DIR
+	$(SED) -i 's/apb_pkg::prot_t/logic [2:0]/g' $@
 	rm -f $@.pre
 
 $(IDMA_HTML_DIR)/%/index.html: $(IDMA_PICKLE_DIR)/%.sv
@@ -411,6 +413,8 @@ $(IDMA_VLT_DIR)/%_elab.log: $(IDMA_PICKLE_DIR)/sources.json
 	else \
 		$(CAT) $(IDMA_CF_PKG) $(IDMA_VLT_DIR)/$(IDMA_VLT_TOP).sv.pre > $(IDMA_VLT_DIR)/$(IDMA_VLT_TOP).sv; \
 	fi
+	# Hack apb_pkg::prot_t IDMA_DOC_OUT_DIR
+	$(SED) -i 's/apb_pkg::prot_t/logic [2:0]/g' $(IDMA_VLT_DIR)/$(IDMA_VLT_TOP).sv
 	rm -f $(IDMA_VLT_DIR)/$(IDMA_VLT_TOP).sv.pre
 	cd $(IDMA_VLT_DIR); $(VERILATOR) $(IDMA_VLT_ARGS) $(IDMA_VLT_PARAMS) -Mdir obj_$* $(IDMA_VLT_TOP).sv --top-module $(IDMA_VLT_TOP) 2> $*_elab.log
 
