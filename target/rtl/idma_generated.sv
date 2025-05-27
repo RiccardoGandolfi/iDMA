@@ -19477,6 +19477,8 @@ module idma_reg32_3d #(
       arb_dma_req[i].burst_req.opt.src_protocol = idma_pkg::protocol_e'(dma_reg2hw[i].conf.src_protocol);
       arb_dma_req[i].burst_req.opt.dst_protocol = idma_pkg::protocol_e'(dma_reg2hw[i].conf.dst_protocol);
 
+      arb_dma_req[i].stream_idx = '0;
+
       for (int c = 0; c < NumStreams; c++) begin
         if (dma_reg2hw[i].next_id[c].re) begin
             arb_dma_req[i].stream_idx = c;
