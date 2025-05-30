@@ -19394,7 +19394,7 @@ module idma_reg32_3d #(
   output logic       req_valid_o,
   input  logic       req_ready_i,
   input  cnt_width_t next_id_i,
-//   output stream_t    stream_idx_o,
+  //output stream_t    stream_idx_o,
   /// Status signals
   input  cnt_width_t           [NumStreams-1:0] done_id_i,
   input  idma_pkg::idma_busy_t [NumStreams-1:0] busy_i,
@@ -19417,17 +19417,16 @@ module idma_reg32_3d #(
   // register signals
   reg_rsp_t [NumRegs-1:0] dma_ctrl_rsp;
 
-
-//   always_comb begin
-//       stream_idx_o = '0;
-//       for (int r = 0; r < NumRegs; r++) begin
-//           for (int c = 0; c < NumStreams; c++) begin
-//               if (dma_reg2hw[r].next_id[c].re) begin
-//                   stream_idx_o = c;
-//               end
-//           end
-//       end
-//   end
+  // always_comb begin
+  //     stream_idx_o = '0;
+  //     for (int r = 0; r < NumRegs; r++) begin
+  //         for (int c = 0; c < NumStreams; c++) begin
+  //             if (dma_reg2hw[r].next_id[c].re) begin
+  //                 stream_idx_o = c;
+  //             end
+  //         end
+  //     end
+  // end
               
   // generate the registers
   for (genvar i = 0; i < NumRegs; i++) begin : gen_core_regs
@@ -19476,6 +19475,7 @@ module idma_reg32_3d #(
       // Protocols
       arb_dma_req[i].burst_req.opt.src_protocol = idma_pkg::protocol_e'(dma_reg2hw[i].conf.src_protocol);
       arb_dma_req[i].burst_req.opt.dst_protocol = idma_pkg::protocol_e'(dma_reg2hw[i].conf.dst_protocol);
+
 
       arb_dma_req[i].stream_idx = '0;
 
@@ -19678,6 +19678,7 @@ module idma_reg64_2d #(
       arb_dma_req[i].burst_req.opt.src_protocol = idma_pkg::protocol_e'(dma_reg2hw[i].conf.src_protocol);
       arb_dma_req[i].burst_req.opt.dst_protocol = idma_pkg::protocol_e'(dma_reg2hw[i].conf.dst_protocol);
 
+
       // Current backend only supports incremental burst
       arb_dma_req[i].burst_req.opt.src.burst = axi_pkg::BURST_INCR;
       arb_dma_req[i].burst_req.opt.dst.burst = axi_pkg::BURST_INCR;
@@ -19866,6 +19867,7 @@ module idma_reg64_1d #(
       // Protocols
       arb_dma_req[i].opt.src_protocol = idma_pkg::protocol_e'(dma_reg2hw[i].conf.src_protocol);
       arb_dma_req[i].opt.dst_protocol = idma_pkg::protocol_e'(dma_reg2hw[i].conf.dst_protocol);
+
 
       // Current backend only supports incremental burst
       arb_dma_req[i].opt.src.burst = axi_pkg::BURST_INCR;
