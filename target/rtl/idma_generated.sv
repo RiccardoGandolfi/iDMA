@@ -19513,9 +19513,9 @@ module idma_reg32_3d #(
         arb_dma_req[i].d_req[0].reps = '0;
         arb_dma_req[i].d_req[1].reps = 'd1;
       end
-    //   else if ( dma_reg2hw[i].conf.enable_nd.q == 1) begin
-    //     arb_dma_req[i].d_req[1].reps = 'd1;
-    //   end
+      else if ( dma_reg2hw[i].conf.enable_nd.q == 1) begin
+        arb_dma_req[i].d_req[1].reps = 'd1;
+      end
     end
 
     // observational registers
