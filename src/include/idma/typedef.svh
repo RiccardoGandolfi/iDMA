@@ -83,12 +83,6 @@
         idma_req_t                burst_req;                             \
         idma_d_req_t [NumDim-2:0] d_req;                                 \
     } idma_nd_req_t;
-`define IDMA_TYPEDEF_ND_REQ_32_3D_WRAP_T(idma_nd_req_t, idma_req_t, idma_d_req_t, stream_width_t)   \
-    typedef struct packed {                                              \
-        idma_req_t                burst_req;                             \
-        idma_d_req_t [NumDim-2:0] d_req;                                 \
-        stream_width_t            stream_idx;                            \
-    } idma_nd_req_t;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -100,10 +94,6 @@
 `define IDMA_TYPEDEF_FULL_ND_REQ_T(idma_nd_req_t, idma_req_t, reps_t, strides_t) \
     `IDMA_TYPEDEF_D_REQ_T(idma_d_req_t, reps_t, strides_t)                       \
     `IDMA_TYPEDEF_ND_REQ_T(idma_nd_req_t, idma_req_t, idma_d_req_t)
-
-`define IDMA_TYPEDEF_FULL_ND_REQ_32_3D_WRAP_T(idma_nd_req_t, idma_req_t, reps_t, strides_t, stream_width_t) \
-    `IDMA_TYPEDEF_D_REQ_T(idma_d_req_t, reps_t, strides_t)                       \
-    `IDMA_TYPEDEF_ND_REQ_32_3D_WRAP_T(idma_nd_req_t, idma_req_t, idma_d_req_t, stream_width_t)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 `endif
