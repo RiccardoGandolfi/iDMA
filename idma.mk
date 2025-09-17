@@ -17,6 +17,9 @@ VCS         ?= vcs
 VERILATOR   ?= verilator
 VLOGAN      ?= vlogan
 
+top_level ?= pulp_idma_wrap
+include bender-synth.mk
+
 # Shell
 SHELL := /bin/bash
 
@@ -304,8 +307,17 @@ define idma_generate_vsim
 	echo >> $1
 endef
 
+define idma_generate_vsim_lint
+	echo 'set ROOT ${IDMA_ROOT}' > $1
+	$(BENDER) script vsim $2 | grep -v "set ROOT" >> $1
+	echo >> $1
+endef
+
 $(IDMA_VSIM_DIR)/compile.tcl: $(IDMA_BENDER_FILES) $(IDMA_FULL_TB) $(IDMA_FULL_RTL) $(IDMA_INCLUDE_ALL) $(IDMA_WAVE_ALL)
 	$(call idma_generate_vsim, $@, -t sim -t test -t idma_test -t synth -t rtl -t asic -t snitch_cluster,../../..)
+
+$(IDMA_VSIM_DIR)/compile_lint.tcl: $(IDMA_BENDER_FILES) $(IDMA_FULL_TB) $(IDMA_FULL_RTL) $(IDMA_INCLUDE_ALL) $(IDMA_WAVE_ALL)
+	$(call idma_generate_vsim_lint, $@, -t sim -t test -t idma_test -t synth -t rtl $(synth_targs) $(synth_defs) -t snitch_cluster,../../..)
 
 idma_sim_clean:
 	rm -rf $(IDMA_VSIM_DIR)/compile.tcl
@@ -485,3 +497,23 @@ idma_hw_all: $(IDMA_FULL_RTL) $(IDMA_INCLUDE_ALL) $(IDMA_FULL_TB) $(IDMA_HJSON_A
 idma_sim_all: $(IDMA_VCS_DIR)/compile.sh $(IDMA_VSIM_DIR)/compile.tcl
 
 idma_all: idma_hw_all idma_sim_all idma_doc_all idma_pickle_all
+
+# Lint targets
+
+$(library):
+	$(QUESTA) vlib $(library)
+
+compile_lint: $(library)
+	qverify -od lint/comp_lint_results -c -do " \
+	onerror {exit}; \
+	do $(IDMA_VSIM_DIR)/compile_lint.tcl; \
+	exit"
+
+lint: compile_lint
+	qverify -od lint/lint_results -c -do " \
+	lint methodology ip -goal release; \
+	lint run -d $(top_level); \
+	exit"
+
+lint_gui:
+	qverify lint/lint_results/lint.db
